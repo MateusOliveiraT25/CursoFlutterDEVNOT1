@@ -11,16 +11,24 @@
       "email": "maria@gmail.com"
     },
     {
-      "id": "de2d"
+      "id": "de2d",
+      "nome": "Usuário 3",
+      "email": "usuario3@gmail.com"
     },
     {
-      "id": "a9d6"
+      "id": "a9d6",
+      "nome": "Usuário 4",
+      "email": "usuario4@gmail.com"
     },
     {
-      "id": "a0a1"
+      "id": "a0a1",
+      "nome": "Usuário 5",
+      "email": "usuario5@gmail.com"
     },
     {
-      "id": "8434"
+      "id": "8434",
+      "nome": "Usuário 6",
+      "email": "usuario6@gmail.com"
     }
   ],
   "produtos": [
@@ -83,6 +91,26 @@
       "nome": "Amazon Echo Dot",
       "codigo": "10",
       "preco": "49.99"
+    }
+  ],
+  "audios": [
+    {
+      "id": "1",
+      "title": "Love games",
+      "artist": "Superphones",
+      "url": "http://www.dominiopublico.gov.br/download/som/ea000123.mp3"
+    },
+    {
+      "id": "2",
+      "title": "Triplets",
+      "artist": "George Hamilton Green",
+      "url": "http://www.dominiopublico.gov.br/download/som/gu10423.mp3"
+    },
+    {
+      "id": "3",
+      "title": "Oslodum [Creative Commons - Sampling Plus License]",
+      "artist": "Gilberto Gill",
+      "url": "http://www.dominiopublico.gov.br/download/som/Gilberto%20Gil%20-%20Oslodum.mp3"
     }
   ]
 }
