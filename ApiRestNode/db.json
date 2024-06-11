@@ -1,0 +1,88 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "João",
+      "email": "joao@gmail.com"
+    },
+    {
+      "id": "2",
+      "nome": "Maria",
+      "email": "maria@gmail.com"
+    },
+    {
+      "id": "de2d"
+    },
+    {
+      "id": "a9d6"
+    },
+    {
+      "id": "a0a1"
+    },
+    {
+      "id": "8434"
+    }
+  ],
+  "produtos": [
+    {
+      "id": "1",
+      "nome": "Apple iPhone 13",
+      "codigo": "1",
+      "preco": "699.00"
+    },
+    {
+      "id": "2",
+      "nome": "Samsung Galaxy S21",
+      "codigo": "2",
+      "preco": "799.00"
+    },
+    {
+      "id": "3",
+      "nome": "Sony WH-1000XM4",
+      "codigo": "3",
+      "preco": "349.00"
+    },
+    {
+      "id": "4",
+      "nome": "Dell XPS 13",
+      "codigo": "4",
+      "preco": "999.00"
+    },
+    {
+      "id": "5",
+      "nome": "Apple MacBook Air M1",
+      "codigo": "5",
+      "preco": "999.00"
+    },
+    {
+      "id": "6",
+      "nome": "Nintendo Switch",
+      "codigo": "6",
+      "preco": "299.00"
+    },
+    {
+      "id": "7",
+      "nome": "Sony PlayStation 5",
+      "codigo": "7",
+      "preco": "499.00"
+    },
+    {
+      "id": "8",
+      "nome": "Xbox Series X",
+      "codigo": "8",
+      "preco": "499.00"
+    },
+    {
+      "id": "9",
+      "nome": "Bose QuietComfort 35 II",
+      "codigo": "9",
+      "preco": "299.00"
+    },
+    {
+      "id": "10",
+      "nome": "Amazon Echo Dot",
+      "codigo": "10",
+      "preco": "49.99"
+    }
+  ]
+}

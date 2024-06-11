@@ -1,0 +1,4 @@
+- Homepage - lista deprodutos
+add novos produtos
+- model (produtos)
+- controller (produtos)

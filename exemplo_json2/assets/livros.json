@@ -1,0 +1,88 @@
+[
+    
+    {
+        "titulo": "O Fim da Eternidade",
+        "autor": "Isaac Asimov",    
+        "sinopse": "O Fim da Eternidade é um livro de ficção científica escrito por Isaac Asimov, publicado em 1985.",
+        "categoria": "Ficção Científica",
+        "isbn": "978-85-216-0303-2",
+        "capa": "assets/img/img01.jpg"
+    },
+    {
+        "titulo": "O Morro dos Ventos Uivantes",
+        "autor": "Emily Bronte",
+        "sinopse": "O Morro dos Ventos Uivantes é um livro de ficção escrito por Emily Bronte, publicado em 1847.",
+        "categoria": "Terror",
+        "isbn": "978-85-216-0303-5",
+        "capa": "assets/img/img02.jpg"
+    },
+    {
+        "titulo": "Memorias Póstumas de Brás Cubas",
+        "autor": "Machado de Assis",
+        "sinopse": "Memorias Póstumas de Brás Cubas é um livro de romance escrito por Machado de Assis, publicado em 1942.",
+        "categoria": "Romance Realista",
+        "isbn": "978-85-216-0303-9"  ,
+        "capa": "assets/img/img03.jpg"
+    },
+
+    {
+        "titulo": "Dom Casmurro",
+        "autor": "Machado de Assis",
+        "sinopse": "Dom Casmurro é uma das principais obras de Machado de Assis, publicada em 1899. O romance narra a história de Bentinho, que se torna ciumento ao suspeitar da traição de sua esposa Capitu.",
+        "categoria": "Romance Realista",
+        "isbn": "978-85-254-1883-5",
+        "capa": "assets/img/img04.jpg"
+      },
+
+      {
+        "titulo": "Grande Sertão: Veredas",
+        "autor": "João Guimarães Rosa",
+        "sinopse": "Grande Sertão: Veredas é uma obra-prima da literatura brasileira, escrita por João Guimarães Rosa e publicada em 1956. O romance é uma narrativa épica que se passa no sertão brasileiro, explorando temas como amor, violência e identidade.",
+        "categoria": "Romance Modernista",
+        "isbn": "978-85-01-04924-3",
+        "capa": "assets/img/img05.jpg"
+      },
+
+      {
+        "titulo": "Cem Anos de Solidão",
+        "autor": "Gabriel García Márquez",
+        "sinopse": "Cem Anos de Solidão é uma obra-prima do realismo mágico, escrita pelo autor colombiano Gabriel García Márquez e publicada em 1967. O romance narra a história da família Buendía ao longo de várias gerações na fictícia cidade de Macondo, explorando temas como amor, solidão, e o ciclo da vida.",
+        "categoria": "Realismo Mágico",
+        "isbn": "978-85-359-0277-4",
+        "capa": "assets/img/img06.jpg"
+      },
+
+      {
+        "titulo": "A Ilha Misteriosa",
+        "autor": "Júlio Verne",
+        "sinopse": "A Ilha Misteriosa é um romance de aventura escrito por Júlio Verne e publicado em 1874. A história segue um grupo de náufragos que ficam presos em uma ilha deserta e precisam usar sua engenhosidade para sobreviver e desvendar os segredos do lugar.",
+        "categoria": "Aventura",
+        "isbn": "978-85-7244-972-7",
+        "capa": "assets/img/img07.jpg"
+      },
+
+      {
+        "titulo": "O Cão dos Baskervilles",
+        "autor": "Arthur Conan Doyle",
+        "sinopse": "O Cão dos Baskervilles é um dos mais famosos romances policiais escritos por Arthur Conan Doyle e publicado em 1902. Sherlock Holmes e seu fiel amigo Dr. Watson são chamados para investigar uma série de eventos sinistros envolvendo a família Baskerville e uma antiga maldição que assombra a região de Dartmoor.",
+        "categoria": "Romance Policial",
+        "isbn": "978-85-359-1825-5",
+        "capa": "assets/img/img08.jpg"
+      },
+
+      {
+        "titulo": "Arsène Lupin, o Ladrão de Casaca",
+        "autor": "Maurice Leblanc",
+        "sinopse": "Arsène Lupin, o Ladrão de Casaca é uma coleção de contos escrita por Maurice Leblanc e publicada em 1907. O personagem principal, Arsène Lupin, é um ladrão charmoso e mestre do disfarce que embarca em aventuras emocionantes, desafiando a polícia e desvendando mistérios enquanto rouba os ricos e ajuda os pobres.",
+        "categoria": "Aventura / Mistério",
+        "isbn": "978-85-359-2341-9",
+        "capa": "assets/img/img09.jpg"
+      }
+      
+      
+      
+      
+      
+      
+
+]
