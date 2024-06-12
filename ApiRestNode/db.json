@@ -98,19 +98,22 @@
       "id": "1",
       "title": "Love games",
       "artist": "Superphones",
-      "url": "http://www.dominiopublico.gov.br/download/som/ea000123.mp3"
+      "url": "http://www.dominiopublico.gov.br/download/som/ea000123.mp3",
+      "imageUrl": "https://images.educamaisbrasil.com.br/content/banco_de_imagens/guia-de-estudo/D/a-noite-estrelada.jpg"
     },
     {
       "id": "2",
       "title": "Triplets",
       "artist": "George Hamilton Green",
-      "url": "http://www.dominiopublico.gov.br/download/som/gu10423.mp3"
+      "url": "http://www.dominiopublico.gov.br/download/som/gu10423.mp3",
+      "imageUrl": "http://www.dominiopublico.gov.br/download/imagem/wk000005.jpg"
     },
     {
       "id": "3",
       "title": "Oslodum [Creative Commons - Sampling Plus License]",
       "artist": "Gilberto Gill",
-      "url": "http://www.dominiopublico.gov.br/download/som/Gilberto%20Gil%20-%20Oslodum.mp3"
+      "url": "http://www.dominiopublico.gov.br/download/som/Gilberto%20Gil%20-%20Oslodum.mp3",
+      "imageUrl": "http://www.dominiopublico.gov.br/download/imagem/np000002.jpg"
     }
   ]
 }

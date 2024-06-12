@@ -1,5 +1,6 @@
-import 'package:exemplo_audio_player/services/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:exemplo_audio_player/services/audio_service.dart';
+import 'audio_player.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,16 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Audio Player'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
-              _getAudioList();
-            },
+            icon: const Icon(Icons.refresh),
+            onPressed: _getAudioList,
           ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: FutureBuilder(
+        child: FutureBuilder<void>(
           future: _getAudioList(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -57,14 +56,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: _service.list.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      child: Image.network(
+                        _service.list[index].imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     title: Text(_service.list[index].title),
                     subtitle: Text(_service.list[index].artist),
-                    trailing: IconButton(
-                      icon: Icon(Icons.play_arrow),
-                      onPressed: () {
-                        // Ação a ser tomada ao pressionar o botão de play
-                      },
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AudioPlayerScreen(
+                            audioList: _service.list,
+                            initialIndex: index,
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               );
