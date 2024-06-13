@@ -114,6 +114,13 @@
       "artist": "Gilberto Gill",
       "url": "http://www.dominiopublico.gov.br/download/som/Gilberto%20Gil%20-%20Oslodum.mp3",
       "imageUrl": "https://www.superprof.com.br/blog/wp-content/uploads/2019/10/obras-famosas-brasileiras.jpg"
+    },
+    {
+      "id": "4",
+      "title": "Michael Jackson - Thriller",
+      "artist": "Michael Jackson",
+      "url": "https://firebasestorage.googleapis.com/v0/b/testefirebasenoite.appspot.com/o/Michael%20Jackson%20-%20Thriller%20(Official%20Video%20-%20Shortened%20Version).mp3?alt=media&token=1a024283-0f01-4281-baae-620d39175718",
+      "imageUrl": "https://assets.papelpop.com/wp-content/uploads/2018/08/1_vDYKBefP3s6rQ96MuHstZQ.jpeg"
     }
   ]
 }
