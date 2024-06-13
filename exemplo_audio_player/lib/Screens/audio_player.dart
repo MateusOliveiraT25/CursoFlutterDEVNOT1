@@ -6,7 +6,11 @@ class AudioPlayerScreen extends StatefulWidget {
   final List<AudioModel> audioList;
   final int initialIndex;
 
-  const AudioPlayerScreen({super.key, required this.audioList, this.initialIndex = 0});
+  const AudioPlayerScreen({
+    super.key,
+    required this.audioList,
+    this.initialIndex = 0,
+  });
 
   @override
   State<AudioPlayerScreen> createState() => _AudioPlayerScreenState();
@@ -16,6 +20,8 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   late AudioPlayer _audioPlayer;
   bool _isPlaying = false;
   int _currentIndex = 0;
+  Duration _currentPosition = Duration.zero;
+  Duration _totalDuration = Duration.zero;
 
   @override
   void initState() {
@@ -23,9 +29,22 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     _audioPlayer = AudioPlayer();
     _currentIndex = widget.initialIndex;
     _playCurrentAudio();
+
     _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
       setState(() {
         _isPlaying = state == PlayerState.playing;
+      });
+    });
+
+    _audioPlayer.onPositionChanged.listen((Duration position) {
+      setState(() {
+        _currentPosition = position;
+      });
+    });
+
+    _audioPlayer.onDurationChanged.listen((Duration duration) {
+      setState(() {
+        _totalDuration = duration;
       });
     });
   }
@@ -63,6 +82,13 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     }
   }
 
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,44 +99,67 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 200,
-              height: 200,
-              margin: const EdgeInsets.only(bottom: 24),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Image.network(
                 widget.audioList[_currentIndex].imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(Icons.image, size: 200);
-                },
+                height: 200,
+              ),
+            ),
+            Text(
+              widget.audioList[_currentIndex].title,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              widget.audioList[_currentIndex].artist,
+              style: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 16),
+            Slider(
+              value: _currentPosition.inSeconds.toDouble(),
+              max: _totalDuration.inSeconds.toDouble(),
+              onChanged: (value) {
+                final position = Duration(seconds: value.toInt());
+                _audioPlayer.seek(position);
+                setState(() {
+                  _currentPosition = position;
+                });
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(_formatDuration(_currentPosition)),
+                  Text(_formatDuration(_totalDuration)),
+                ],
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(Icons.skip_previous),
+                  icon: const Icon(Icons.skip_previous),
                   iconSize: 64.0,
                   onPressed: _playPrevious,
-                  color: Theme.of(context).primaryColor,
                 ),
                 IconButton(
                   icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
                   iconSize: 64.0,
                   onPressed: _playPause,
-                  color: Theme.of(context).primaryColor,
                 ),
                 IconButton(
-                  icon: Icon(Icons.skip_next),
+                  icon: const Icon(Icons.skip_next),
                   iconSize: 64.0,
                   onPressed: _playNext,
-                  color: Theme.of(context).primaryColor,
                 ),
               ],
             ),
             Text(
               _isPlaying ? 'Reproduzindo' : 'Pausado',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),
