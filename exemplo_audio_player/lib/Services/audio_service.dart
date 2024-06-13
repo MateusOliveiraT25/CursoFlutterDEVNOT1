@@ -15,7 +15,7 @@ class AudioService {
       final data = json.decode(response.body) as List;
       _list = data.map((e) => AudioModel.fromMap(e)).toList();
     } else {
-      throw Exception('Failed to load audio');
+      throw Exception('Falha ao carregar audio');
     }
   }
 }
