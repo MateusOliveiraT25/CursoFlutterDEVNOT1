@@ -51,74 +51,63 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   void _playNext() {
     if (_currentIndex < widget.audioList.length - 1) {
-      setState(() {
-        _currentIndex++;
-      });
+      _currentIndex++;
       _playCurrentAudio();
     }
   }
 
   void _playPrevious() {
     if (_currentIndex > 0) {
-      setState(() {
-        _currentIndex--;
-      });
+      _currentIndex--;
       _playCurrentAudio();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final audio = widget.audioList[_currentIndex];
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(audio.title),
+        title: Text(widget.audioList[_currentIndex].title),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (audio.imageUrl.isNotEmpty)
-              Image.network(
-                audio.imageUrl,
-                width: 200,
-                height: 200,
+            Container(
+              width: 200,
+              height: 200,
+              margin: const EdgeInsets.only(bottom: 24),
+              child: Image.network(
+                widget.audioList[_currentIndex].imageUrl,
+                fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Icon(Icons.image, size: 200);
                 },
               ),
-            SizedBox(height: 20),
-            Text(
-              audio.title,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text(
-              audio.artist,
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
                   icon: Icon(Icons.skip_previous),
-                  iconSize: 48.0,
+                  iconSize: 64.0,
                   onPressed: _playPrevious,
+                  color: Theme.of(context).primaryColor,
                 ),
                 IconButton(
                   icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
                   iconSize: 64.0,
                   onPressed: _playPause,
+                  color: Theme.of(context).primaryColor,
                 ),
                 IconButton(
                   icon: Icon(Icons.skip_next),
-                  iconSize: 48.0,
+                  iconSize: 64.0,
                   onPressed: _playNext,
+                  color: Theme.of(context).primaryColor,
                 ),
               ],
             ),
-            SizedBox(height: 20),
             Text(
               _isPlaying ? 'Reproduzindo' : 'Pausado',
               style: TextStyle(fontSize: 20),

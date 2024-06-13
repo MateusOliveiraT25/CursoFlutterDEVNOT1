@@ -55,28 +55,35 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListView.builder(
                 itemCount: _service.list.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Container(
-                      width: 50,
-                      height: 50,
-                      child: Image.network(
-                        _service.list[index].imageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    title: Text(_service.list[index].title),
-                    subtitle: Text(_service.list[index].artist),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AudioPlayerScreen(
-                            audioList: _service.list,
-                            initialIndex: index,
-                          ),
+                  return Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      leading: Container(
+                        width: 50,
+                        height: 50,
+                        child: Image.network(
+                          _service.list[index].imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(Icons.image, size: 50);
+                          },
                         ),
-                      );
-                    },
+                      ),
+                      title: Text(_service.list[index].title),
+                      subtitle: Text(_service.list[index].artist),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AudioPlayerScreen(
+                              audioList: _service.list,
+                              initialIndex: index,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 },
               );
