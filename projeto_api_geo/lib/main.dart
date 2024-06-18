@@ -4,7 +4,7 @@ import 'package:projeto_api_geo/View/search_screen.dart';
 
 import 'View/details_weather_screen.dart';
 import 'View/home_screen.dart';
-import 'View/favorite_screen.dart';
+import 'View/history_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes:{
         '/search':(context) => const SearchScreen(),
-           '/favorite':(context) => const FavoriteScreen(),      
+           '/history':(context) => const HistoryScreen(),      
       } ,
     );
   }

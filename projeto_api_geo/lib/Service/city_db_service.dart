@@ -10,7 +10,7 @@ class CityDataBaseService {
       """CREATE TABLE cities(
         id SERIAL, 
         cityname TEXT, 
-        favoritecities BOOLEAN)""";
+        historycities BOOLEAN)""";
 
   Future<Database> _getDatabase() async{
     return openDatabase(
@@ -31,7 +31,7 @@ class CityDataBaseService {
     (i) {
       return City(
         cityName: maps[i]['cityname'],
-        favoriteCities: maps[i]['favoritecities'] == 1, // Convertendo de int para bool
+        historyCities: maps[i]['historycities'] == 1, // Convertendo de int para bool
       );
     },
   );
@@ -52,10 +52,10 @@ class CityDataBaseService {
 Future<void> updateCity(City city) async {
   try {
     Database db = await _getDatabase();
-    int isFavoriteInt = city.favoriteCities ? 1 : 0; // Convertendo bool para int
+    int isHistoryInt = city.historyCities ? 1 : 0; // Convertendo bool para int
     await db.update(
       TABLE_NOME,
-      {'favoritecities': isFavoriteInt},
+      {'historycities': isHistoryInt},
       where: 'cityname = ?',
       whereArgs: [city.cityName],
     );
@@ -64,12 +64,12 @@ Future<void> updateCity(City city) async {
   }
 }
 
-  Future<void> favoriteCity(String cityName, bool isFavorite) async {
+  Future<void> historyCity(String cityName, bool isHistory) async {
     try {
       Database db = await _getDatabase();
       await db.update(
         TABLE_NOME,
-        {'favoritecities': isFavorite ? 1 : 0},
+        {'historycities': isHistory ? 1 : 0},
         where: 'cityname = ?',
         whereArgs: [cityName],
       );

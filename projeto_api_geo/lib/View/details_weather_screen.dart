@@ -16,19 +16,44 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
   final WeatherController _controller = WeatherController();
   final CityDataBaseService _dbService = CityDataBaseService();
 
-  bool isFavorite = false;
+  bool isHistory = false;
 
   @override
   void initState() {
     super.initState();
-    checkIfFavorite();
+    checkIfHistory();
   }
 
-  Future<void> checkIfFavorite() async {
+  Future<void> checkIfHistory() async {
     List<City> cities = await _dbService.getAllCities();
     setState(() {
-      isFavorite = cities.any((city) => city.cityName == widget.city && city.favoriteCities);
+      isHistory = cities.any((city) => city.cityName == widget.city && city.historyCities);
     });
+  }
+
+  String _translateDescription(String description) {
+    switch (description.toLowerCase()) {
+      case 'clear sky':
+        return 'céu limpo';
+      case 'few clouds':
+        return 'poucas nuvens';
+      case 'scattered clouds':
+        return 'nuvens esparsas';
+      case 'broken clouds':
+        return 'céu nublado';
+      case 'shower rain':
+        return 'chuvisco';
+      case 'rain':
+        return 'chuva';
+      case 'thunderstorm':
+        return 'trovoada';
+      case 'snow':
+        return 'neve';
+      case 'mist':
+        return 'névoa';
+      default:
+        return description;
+    }
   }
 
   @override
@@ -48,28 +73,29 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
               } else if (snapshot.hasError) {
                 return Text('Erro: ${snapshot.error}');
               } else {
+                final weather = _controller.weatherList.last;
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(_controller.weatherList.last.name),
+                        Text(weather.name),
                         IconButton(
-                          icon: isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                          icon: isHistory ? const Icon(Icons.history) : const Icon(Icons.favorite_border),
                           onPressed: () async {
                             setState(() {
-                              isFavorite = !isFavorite;
+                              isHistory = !isHistory;
                             });
-                            City cidade = City(cityName: widget.city, favoriteCities: isFavorite);
+                            City cidade = City(cityName: widget.city, historyCities: isHistory);
                             await _dbService.updateCity(cidade);
                           },
                         ),
                       ],
                     ),
-                    Text(_controller.weatherList.last.main),
-                    Text(_controller.weatherList.last.description),
-                    Text((_controller.weatherList.last.temp - 273).toStringAsFixed(2)),
+                    Text(weather.main),
+                    Text(_translateDescription(weather.description)),
+                    Text((weather.temp - 273).toStringAsFixed(2)),
                   ],
                 );
               }

@@ -3,20 +3,20 @@ import 'package:projeto_api_geo/Service/city_db_service.dart';
 import 'details_weather_screen.dart';
 import '../Model/city_model.dart';
 
-class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({Key? key});
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({Key? key});
 
   @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
+  State<HistoryScreen> createState() => _HistoryScreenState();
 }
 
-class _FavoriteScreenState extends State<FavoriteScreen> {
+class _HistoryScreenState extends State<HistoryScreen> {
   final CityDataBaseService _dbService = CityDataBaseService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Historico")),
+      appBar: AppBar(title: const Text("Histórico")),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: FutureBuilder<List<City>>(
@@ -29,10 +29,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(child: Text("Sem cidades favoritas"));
             } else {
+              // Remover duplicatas e ordenar a lista de cidades por ordem alfabética
+              List<City> sortedCities = snapshot.data!.toSet().toList();
+              sortedCities.sort((a, b) => a.cityName.compareTo(b.cityName));
+
               return ListView.builder(
-                itemCount: snapshot.data!.length,
+                itemCount: sortedCities.length,
                 itemBuilder: (context, index) {
-                  final city = snapshot.data![index];
+                  final city = sortedCities[index];
                   return ListTile(
                     title: Text(city.cityName),
                     onTap: () {

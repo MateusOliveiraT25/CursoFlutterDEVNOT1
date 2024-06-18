@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {Navigator.pushNamed(context,'/search');}, 
                         child: const Text("Procurar")),
                     ElevatedButton(
-                         onPressed: () {Navigator.pushNamed(context,'/favorite');}, 
+                         onPressed: () {Navigator.pushNamed(context,'/history');}, 
                         child: const Text("Historico")),
                   ],
                 ),
