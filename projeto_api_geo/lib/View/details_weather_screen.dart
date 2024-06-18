@@ -31,6 +31,31 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
     });
   }
 
+  String _translateDescription(String description) {
+    switch (description.toLowerCase()) {
+      case 'clear sky':
+        return 'céu limpo';
+      case 'few clouds':
+        return 'poucas nuvens';
+      case 'scattered clouds':
+        return 'nuvens esparsas';
+      case 'broken clouds':
+        return 'céu nublado';
+      case 'shower rain':
+        return 'chuvisco';
+      case 'rain':
+        return 'chuva';
+      case 'thunderstorm':
+        return 'trovoada';
+      case 'snow':
+        return 'neve';
+      case 'mist':
+        return 'névoa';
+      default:
+        return description;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +73,14 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
               } else if (snapshot.hasError) {
                 return Text('Erro: ${snapshot.error}');
               } else {
+                final weather = _controller.weatherList.last;
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(_controller.weatherList.last.name),
+                        Text(weather.name),
                         IconButton(
                           icon: isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
                           onPressed: () async {
@@ -67,9 +93,9 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
                         ),
                       ],
                     ),
-                    Text(_controller.weatherList.last.main),
-                    Text(_controller.weatherList.last.description),
-                    Text((_controller.weatherList.last.temp - 273).toStringAsFixed(2)),
+                    Text(weather.main),
+                    Text(_translateDescription(weather.description)),
+                    Text((weather.temp - 273).toStringAsFixed(2)),
                   ],
                 );
               }
