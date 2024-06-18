@@ -23,17 +23,20 @@ class CityDataBaseService {
     );
   }
 
-  Future<List<City>> getAllCities() async {
-    Database db = await _getDatabase();
-    List<Map<String, dynamic>> maps = await db.query(TABLE_NOME);
-    return  List.generate(
-        maps.length,
-        (i) {
-          return City.fromMap(maps[
-              i]); // Converte os resultados da consulta para objetos ContactModel
-        },
+ Future<List<City>> getAllCities() async {
+  Database db = await _getDatabase();
+  List<Map<String, dynamic>> maps = await db.query(TABLE_NOME);
+  return List.generate(
+    maps.length,
+    (i) {
+      return City(
+        cityName: maps[i]['cityname'],
+        favoriteCities: maps[i]['favoritecities'] == 1, // Convertendo de int para bool
       );
-  }
+    },
+  );
+}
+
 
   Future<int> insertCity(City city) async {
     try {
@@ -54,6 +57,20 @@ class CityDataBaseService {
     } catch (e) {
       print(e);
       
+    }
+  }
+
+  Future<void> favoriteCity(String cityName, bool isFavorite) async {
+    try {
+      Database db = await _getDatabase();
+      await db.update(
+        TABLE_NOME,
+        {'favoritecities': isFavorite ? 1 : 0},
+        where: 'cityname = ?',
+        whereArgs: [cityName],
+      );
+    } catch (e) {
+      print(e);
     }
   }
 }
