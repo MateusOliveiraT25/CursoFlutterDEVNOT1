@@ -90,21 +90,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<void> _findCity(String city) async {
     if (await _controller.findCity(city)) {
-      // Adiciona a cidade aos favoritos apenas se ainda não estiver na lista
+      // Adiciona a cidade aos historico apenas se ainda não estiver na lista
       List<City> cities = await _dbService.getAllCities();
       if (!cities.any((c) => c.cityName == city && c.historyCities)) {
         City cidade = City(cityName: city, historyCities: true);
         await _dbService.insertCity(cidade);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Cidade encontrada e adicionada aos favoritos!"),
+            content: Text("Cidade encontrada e adicionada aos historico!"),
             duration: Duration(seconds: 1),
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Cidade já está nos favoritos!"),
+            content: Text("Cidade inserida no historico!"),
             duration: Duration(seconds: 1),
           ),
         );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
 import 'package:projeto_api_geo/Service/city_db_service.dart';
-
 import '../Model/city_model.dart';
 
 class DetailsWeatherScreen extends StatefulWidget {
@@ -29,31 +28,6 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
     setState(() {
       isHistory = cities.any((city) => city.cityName == widget.city && city.historyCities);
     });
-  }
-
-  String _translateDescription(String description) {
-    switch (description.toLowerCase()) {
-      case 'clear sky':
-        return 'céu limpo';
-      case 'few clouds':
-        return 'poucas nuvens';
-      case 'scattered clouds':
-        return 'nuvens esparsas';
-      case 'broken clouds':
-        return 'céu nublado';
-      case 'shower rain':
-        return 'chuvisco';
-      case 'rain':
-        return 'chuva';
-      case 'thunderstorm':
-        return 'trovoada';
-      case 'snow':
-        return 'neve';
-      case 'mist':
-        return 'névoa';
-      default:
-        return description;
-    }
   }
 
   @override
@@ -93,8 +67,8 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
                         ),
                       ],
                     ),
-                    Text(weather.main),
-                    Text(_translateDescription(weather.description)),
+                    Text(_controller.translateMain(weather.main)),
+                    Text(_controller.translateDescription(weather.description)),  // Aqui chamamos o método de tradução
                     Text((weather.temp - 273).toStringAsFixed(2)),
                   ],
                 );

@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import '../Model/city_model.dart';
 
 class CityDataBaseService {
-  static const String DB_NOME = 'cities.db'; // Nome do banco de dados
+  static const String DB_NOME = 'city.db'; // Nome do banco de dados
   static const String TABLE_NOME = 'cities'; // Nome da tabela
   static const String CREATE_CONTACTS_TABLE_SCRIPT = // Script SQL para criar a tabela
       """CREATE TABLE cities(
