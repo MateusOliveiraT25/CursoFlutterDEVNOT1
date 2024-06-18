@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_icons/weather_icons.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
 import 'package:projeto_api_geo/Service/city_db_service.dart';
 import '../Model/city_model.dart';
@@ -50,6 +51,13 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> with Single
     });
   }
 
+  Future<void> removeCityFromHistory(String cityName) async {
+    await _dbService.removeCityFromHistory(cityName);
+    setState(() {
+      isHistory = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,27 +84,37 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> with Single
                   return Text('Erro: ${snapshot.error}');
                 } else {
                   final weather = _controller.weatherList.last;
+                  IconData iconData = _controller.getWeatherIcon(weather.main);
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          BoxedIcon(
+                            iconData,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(width: 10),
                           Text(weather.name),
                           IconButton(
                             icon: isHistory ? const Icon(Icons.history) : const Icon(Icons.favorite_border),
                             onPressed: () async {
-                              setState(() {
-                                isHistory = !isHistory;
-                              });
-                              City cidade = City(cityName: widget.city, historyCities: isHistory);
-                              await _dbService.updateCity(cidade);
+                              if (isHistory) {
+                                await removeCityFromHistory(weather.name);
+                              } else {
+                                City cidade = City(cityName: widget.city, historyCities: true);
+                                await _dbService.updateCity(cidade);
+                                setState(() {
+                                  isHistory = true;
+                                });
+                              }
                             },
                           ),
                         ],
                       ),
                       Text(_controller.translateMain(weather.main)),
-                      Text(_controller.translateDescription(weather.description)),  // Aqui chamamos o método de tradução
+                      Text(_controller.translateDescription(weather.description)),
                       Text((weather.temp - 273).toStringAsFixed(2)),
                     ],
                   );

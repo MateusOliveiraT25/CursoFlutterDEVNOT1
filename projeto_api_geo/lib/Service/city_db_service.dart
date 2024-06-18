@@ -64,6 +64,21 @@ Future<void> updateCity(City city) async {
   }
 }
 
+Future<void> removeCityFromHistory(String cityName) async {
+  try {
+    Database db = await _getDatabase();
+    await db.delete(
+      TABLE_NOME,
+      where: 'cityname = ?',
+      whereArgs: [cityName],
+    );
+  } catch (e) {
+    print(e);
+  }
+}
+
+ 
+
   Future<void> historyCity(String cityName, bool isHistory) async {
     try {
       Database db = await _getDatabase();
@@ -77,4 +92,5 @@ Future<void> updateCity(City city) async {
       print(e);
     }
   }
+
 }
