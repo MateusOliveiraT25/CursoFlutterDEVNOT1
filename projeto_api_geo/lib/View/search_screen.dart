@@ -63,16 +63,27 @@ class _SearchScreenState extends State<SearchScreen> {
 Future<void> _findCity(String city) async {
   bool cityExists = await _controller.findCity(city);
   if (cityExists) {
-    // Adiciona a cidade ao banco de dados como favorita
-    City cidade = City(cityName: city, favoriteCities: true);
-    await _dbService.insertCity(cidade);
+    // Verifica se a cidade já está presente no banco de dados como favorita
+    List<City> cities = await _dbService.getAllCities();
+    if (!cities.any((c) => c.cityName == city && c.favoriteCities)) {
+      // Adiciona a cidade ao banco de dados como favorita
+      City cidade = City(cityName: city, favoriteCities: true);
+      await _dbService.insertCity(cidade);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Cidade encontrada!"),
-        duration: Duration(seconds: 1),
-      ),
-    );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Cidade encontrada e adicionada aos favoritos!"),
+          duration: Duration(seconds: 1),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Cidade já está nos favoritos!"),
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
 
     Navigator.push(
       context,
@@ -89,4 +100,5 @@ Future<void> _findCity(String city) async {
     );
   }
 }
+
 }

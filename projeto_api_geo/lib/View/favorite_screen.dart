@@ -16,7 +16,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Cidades Favoritas")),
+      appBar: AppBar(title: const Text("Historico")),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: FutureBuilder<List<City>>(
