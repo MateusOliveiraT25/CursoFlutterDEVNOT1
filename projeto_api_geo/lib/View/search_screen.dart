@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_api_geo/Controller/weather_controller.dart';
 import 'package:projeto_api_geo/Service/city_db_service.dart';
-
-import '../Controller/weather_controller.dart';
-import '../Model/city_model.dart';
 import 'details_weather_screen.dart';
+import '../Model/city_model.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  const SearchScreen({Key? key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -55,65 +54,39 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
-            Expanded(
-              child: FutureBuilder<List<City>>(
-                future: _dbService.getAllCities(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text("Erro ao carregar histórico"));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text("Sem Histórico"));
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        final city = snapshot.data![index];
-                        return ListTile(
-                          title: Text(city.cityName),
-                          onTap: () {
-                            _findCity(city.cityName);
-                          },
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Future<void> _findCity(String city) async {
-    if (await _controller.findCity(city)) {
-      // Adiciona a cidade ao banco de dados se for encontrada
-      City cidade = City(cityName: city, favoriteCities: false);
-      await _dbService.insertCity(cidade);
+Future<void> _findCity(String city) async {
+  bool cityExists = await _controller.findCity(city);
+  if (cityExists) {
+    // Adiciona a cidade ao banco de dados como favorita
+    City cidade = City(cityName: city, favoriteCities: true);
+    await _dbService.insertCity(cidade);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Cidade encontrada!"),
-          duration: Duration(seconds: 1),
-        ),
-      );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Cidade encontrada!"),
+        duration: Duration(seconds: 1),
+      ),
+    );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => DetailsWeatherScreen(city: city),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Cidade não encontrada!"),
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => DetailsWeatherScreen(city: city),
+      ),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Cidade não encontrada!"),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
+}
 }

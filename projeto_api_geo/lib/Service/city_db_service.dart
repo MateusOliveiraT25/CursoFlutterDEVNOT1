@@ -49,16 +49,20 @@ class CityDataBaseService {
     }
       }  
       //update
-  Future<void> updateCity(City city) async {
-    try {
-      Database db = await _getDatabase();
-      print("banco");
-      db.update(TABLE_NOME, city.toMap(), where: "cityname =?", whereArgs: [city.cityName]);
-    } catch (e) {
-      print(e);
-      
-    }
+Future<void> updateCity(City city) async {
+  try {
+    Database db = await _getDatabase();
+    int isFavoriteInt = city.favoriteCities ? 1 : 0; // Convertendo bool para int
+    await db.update(
+      TABLE_NOME,
+      {'favoritecities': isFavoriteInt},
+      where: 'cityname = ?',
+      whereArgs: [city.cityName],
+    );
+  } catch (e) {
+    print(e);
   }
+}
 
   Future<void> favoriteCity(String cityName, bool isFavorite) async {
     try {
