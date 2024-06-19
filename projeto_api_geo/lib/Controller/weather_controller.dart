@@ -85,7 +85,7 @@ class WeatherController {
     }
   }
 
-  IconData getWeatherIcon(String main) {
+ IconData getWeatherIcon(String main) {
     switch (main.toLowerCase()) {
       case 'clear':
         return WeatherIcons.day_sunny;
@@ -103,4 +103,21 @@ class WeatherController {
         return WeatherIcons.na;
     }
   }
+
+Color getIconColor(double temp) {
+  // Retorna a cor  se a temperatura for menor que 10
+  if (temp < 10) {
+    return Colors.blue;
+  } 
+  // Retorna a cor  se a temperatura for maior ou igual a 10 e menor que 20
+  else if (temp >= 10 && temp < 20) {
+    return Color.fromARGB(255, 238, 222, 4);
+  } 
+  // Retorna a cor  para qualquer outra temperatura
+  else {
+    return Colors.red;
+  }
+}
+
+
 }

@@ -51,13 +51,6 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> with Single
     });
   }
 
-  Future<void> removeCityFromHistory(String cityName) async {
-    await _dbService.removeCityFromHistory(cityName);
-    setState(() {
-      isHistory = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,37 +78,24 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> with Single
                 } else {
                   final weather = _controller.weatherList.last;
                   IconData iconData = _controller.getWeatherIcon(weather.main);
+                  Color iconColor = _controller.getIconColor(weather.temp - 273); // Obtém a cor do ícone do controller
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BoxedIcon(
-                            iconData,
-                            color: Colors.blue,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(weather.name),
-                          IconButton(
-                            icon: isHistory ? const Icon(Icons.history) : const Icon(Icons.favorite_border),
-                            onPressed: () async {
-                              if (isHistory) {
-                                await removeCityFromHistory(weather.name);
-                              } else {
-                                City cidade = City(cityName: widget.city, historyCities: true);
-                                await _dbService.updateCity(cidade);
-                                setState(() {
-                                  isHistory = true;
-                                });
-                              }
-                            },
-                          ),
-                        ],
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Icon(
+                          iconData,
+                          size: 60,
+                          color: iconColor, // Usa a cor obtida do controller
+                        ),
                       ),
+                      Text(weather.name),
+                      const SizedBox(height: 10),
                       Text(_controller.translateMain(weather.main)),
                       Text(_controller.translateDescription(weather.description)),
-                      Text((weather.temp - 273).toStringAsFixed(2)),
+                      Text((weather.temp - 273).toInt().toString()),
                     ],
                   );
                 }
