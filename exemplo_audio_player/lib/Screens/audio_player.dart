@@ -1,19 +1,23 @@
-import 'package:exemplo_audio_player/models/audio_model.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+import '../models/audio_model.dart';
+import 'playlist_popup.dart';
 
 class AudioPlayerScreen extends StatefulWidget {
   final List<AudioModel> audioList;
   final int initialIndex;
 
   const AudioPlayerScreen({
-    super.key,
+    Key? key,
     required this.audioList,
     this.initialIndex = 0,
-  });
+  }) : super(key: key);
 
   @override
-  State<AudioPlayerScreen> createState() => _AudioPlayerScreenState();
+  _AudioPlayerScreenState createState() => _AudioPlayerScreenState();
 }
 
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
@@ -55,7 +59,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     super.dispose();
   }
 
-  void _playCurrentAudio() {
+   void _playCurrentAudio() {
     _audioPlayer.setSource(UrlSource(widget.audioList[_currentIndex].url));
     _audioPlayer.play(UrlSource(widget.audioList[_currentIndex].url));
   }
@@ -64,7 +68,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     if (_isPlaying) {
       _audioPlayer.pause();
     } else {
-      _audioPlayer.play(UrlSource(widget.audioList[_currentIndex].url));
+      _audioPlayer.resume();
     }
   }
 
@@ -82,6 +86,12 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     }
   }
 
+  void _playRandom() {
+    final randomIndex = Random().nextInt(widget.audioList.length);
+    _currentIndex = randomIndex;
+    _playCurrentAudio();
+  }
+
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(duration.inMinutes.remainder(60));
@@ -89,11 +99,30 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     return '$minutes:$seconds';
   }
 
+  void _openPlaylistPopup() {
+    showDialog(
+      context: context,
+      builder: (context) => PlaylistPopup(
+        audioList: widget.audioList,
+        onSave: (playlistName, selectedAudios) {
+          // Implemente a lógica para salvar a playlist aqui
+          print('Playlist "$playlistName" salva com ${selectedAudios.length} músicas.');
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.audioList[_currentIndex].title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.playlist_add),
+            onPressed: _openPlaylistPopup,
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -155,6 +184,11 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                   iconSize: 64.0,
                   onPressed: _playNext,
                 ),
+                IconButton(
+                  icon: const Icon(Icons.shuffle),
+                  iconSize: 64.0,
+                  onPressed: _playRandom,
+                ),
               ],
             ),
             Text(
@@ -167,4 +201,3 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     );
   }
 }
-

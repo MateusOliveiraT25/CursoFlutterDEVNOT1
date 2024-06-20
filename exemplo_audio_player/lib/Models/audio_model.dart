@@ -19,5 +19,13 @@ class AudioModel {
       imageUrl: map['imageUrl'],
     );
   }
-}
 
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'artist': artist,
+      'url': url,
+      'imageUrl': imageUrl,
+    };
+  }
+}
